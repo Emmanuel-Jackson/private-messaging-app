@@ -22,6 +22,16 @@ const socketio = require('socket.io') (http, {
 
 
 socketio.on('connection', (socket) => {
+
+      
+        socket.on('typing', (data) => {
+          socket.broadcast.emit('userTyping', data);
+        });
+      
+        socket.on('stopTyping', (data) => {
+          socket.broadcast.emit('userStopTyping', data);
+        });
+
     socket.on('join', ({ name, room }, callback) => {
         const { error, user } = addUser({ id: socket.id, name, room })
         
